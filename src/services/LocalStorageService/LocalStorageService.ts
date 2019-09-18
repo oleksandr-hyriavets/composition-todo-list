@@ -10,7 +10,7 @@ class LocalStorageService {
     this.localStorage = localStorage
   }
 
-  get(key: string): any {
+  async get(key: string): Promise<any> {
     const item = this.localStorage.getItem(key)
 
     try {
@@ -20,7 +20,7 @@ class LocalStorageService {
     }
   }
 
-  set(key: string, value: any): void {
+  async set(key: string, value: any): Promise<void> {
     const serializedValue = JSON.stringify(value)
 
     this.localStorage.setItem(key, serializedValue)
