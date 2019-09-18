@@ -10,6 +10,7 @@
         v-for="(note, index) in state.allNotes"
         :key="index"
         :content="note.content"
+        @delete="deleteNote(note.id)"
       />
     </ItemList>
   </div>
@@ -57,6 +58,19 @@ function useNotes() {
       await localStorageService.set('notes', newAllNotes)
 
       state.allNotes = newAllNotes
+      state.newNote = ''
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async function deleteNote(noteId: number) {
+    const newAllNotes = state.allNotes.filter(note => note.id !== noteId)
+
+    try {
+      await localStorageService.set('notes', newAllNotes)
+
+      state.allNotes = newAllNotes
     } catch (err) {
       console.error(err)
     }
@@ -72,7 +86,8 @@ function useNotes() {
 
   return {
     state,
-    addNote
+    addNote,
+    deleteNote
   }
 }
 

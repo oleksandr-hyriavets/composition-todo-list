@@ -1,6 +1,7 @@
 <template>
   <div>
     {{ content }}
+    <button @click="onDelete">Delete</button>
   </div>
 </template>
 
@@ -14,9 +15,13 @@ export default createComponent({
       required: true
     }
   },
-  setup({ content }) {
+  setup(props, { emit }) {
+    function onDelete() {
+      emit('delete')
+    }
+
     return {
-      content
+      onDelete
     }
   }
 })
